@@ -89,8 +89,6 @@ We need to deploy two new applications app1 and app2 on our server and need a se
 - Here is the basic command for ext4:  
 ```resize2fs /dev/vgapps/app1-lv 3T```
 
-- Also use for XFS:
+- Also use for XFS:  
 ```xfs_growfs /dev/vgapps/app1-lv (now check using df -h)```
 
-
-```x
