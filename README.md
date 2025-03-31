@@ -44,5 +44,53 @@ We need to deploy two new applications app1 and app2 on our server and need a se
 11. For checking ```fdisk -l```
 
 
+## Designate Physical Volumes (PV) so that it will be available to LVM as storage capacity
+
+- Command to create a PV:  
+```pvcreate /dev/sdb1```
+
+- Display PV capacity and additional information  
+```pvdisplay```
+
+## Manage Volumes Groups (VGs)
+
+- VG must have at least one member (vg00 is our group name and others are our PVs)  
+```vgcreate vgapps /dev/sdb1 /dev/sdb2```  
+
+- To  Display information for a VG named vg00  
+```vgdisplay vgapps```
+
+## Manage Logical Volumes (LVs)
+
+- To create a Logical Volume
+``` lvcreate -L size(1G or 1T) -n lv_name vg_name```
+
+- To display information for a LV
+```lvdisplay /dev/vgapps/lv_name```
+
+## Apply a filesystem and set a mount point
+
+- Run the ```mkfs.ex4``` command on the LV.
+- Create a mount point by using ```mkdir```.
+- Manually mount the volume using the ```mount``` command , or edit the ```/etc/fstab``` file to mount the volume automatically when the system boots.
+- Use the ```df -h command``` to verify the storage capacity available.
 
 
+## Extending a Disk using LVM
+
+- For the first time we have created a VG, now we will extend it  
+```vgextend vgapps/dev/sdb2```
+
+- Add space to LV  
+```lvextend -L+1G /dev/vgapps/app1-lv```
+
+- Make this new space available to FileSystem
+
+- Here is the basic command for ext4:  
+```resize2fs /dev/vgapps/app1-lv 3T```
+
+- Also use for XFS:
+```xfs_growfs /dev/vgapps/app1-lv (now check using df -h)```
+
+
+```x
