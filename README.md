@@ -1,3 +1,5 @@
+source : [here](https://youtu.be/FsSf3rmu2Cc?si=L3OEBp-atjWD-sWl)
+
 ## LVM 
 LVM is used to manage volume and disk on the Linux Server.  
 Logical Volumn Manager allows disks to be combined togather.  
